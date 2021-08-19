@@ -1,0 +1,9 @@
+Brot,Butter,Pilze
+Butter,Schnitzel
+Butter,Sosse
+Brot,Butter,Schnitzel
+Brot,Sosse
+Butter,Sosse
+Brot,Sosse
+Brot,Butter,Sosse,Pilze
+Brot,Butter,Sosse,Mango
