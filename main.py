@@ -1,4 +1,4 @@
-from flask import Flask, json, jsonify, request
+from flask import Flask, json, jsonify, request, send_file
 import sqlalchemy
 from sqlalchemy.ext.declarative import DeclarativeMeta
 from multiprocessing import Process
@@ -106,10 +106,21 @@ def getHistory():
 
 @app.route("/getID/<path:id>", methods=['GET'])
 def getId(id):
-    print('id:', id)
     id = str(id)
     result = History.query.get(id)
     return json.dumps(result, cls=AlchemyEncoder)
+
+@app.route("/getDataset/<path:dataset>", methods=['GET'])
+def getDataset(dataset):
+    print(os.path.dirname(os.path.realpath(__file__)) + "/datasets/" + dataset)
+    if dataset is None:
+        return 'Dataset nicht angegeben', 500
+    try:
+        return send_file(os.path.dirname(os.path.realpath(__file__)) + "/datasets/"+dataset, as_attachment=True)
+    except Exception as e:
+        print(e)
+        return 'Dataset nicht gefunden', 404
+
 
 @app.route("/check/<uuid:job_id>", methods=['GET'])
 def check_status(job_id: uuid):
